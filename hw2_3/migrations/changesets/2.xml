@@ -1,0 +1,28 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <changeSet author="dmpetraytis" id="createIndex">
+        <createIndex indexName="player_name" tableName="player">
+            <column name="name"/>
+        </createIndex>
+        <createIndex indexName="game_player_id" tableName="game">
+            <column name="player_id"/>
+        </createIndex>
+        <createIndex indexName="game_start_datetime" tableName="game">
+            <column name="start_datetime"/>
+        </createIndex>
+        <createIndex indexName="game_hidden_word" tableName="game">
+            <column name="hidden_word"/>
+        </createIndex>
+        <createIndex indexName="turn_history_game_id" tableName="turn_history">
+            <column name="game_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

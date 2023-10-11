@@ -1,0 +1,76 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    
+    <changeSet author="dmpetraytis" id="create-player-table">
+        <createTable tableName="player">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="player_pkey"/>
+            </column>
+
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="win_count" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="dmpetraytis" id="create-game-table">
+        <createTable tableName="game">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="game_pkey"/>
+            </column>
+            <column name="start_datetime" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_datetime" type="TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="hidden_word" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="player_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_game_player" references="player(id)"/>
+            </column>
+
+            <column name="game_status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="dmpetraytis" id="create-turn-history-table">
+        <createTable tableName="turn_history">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="turn_history_pkey"/>
+            </column>
+            
+            <column name="game_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_turn_history_game" references="game(id)"/>
+            </column>
+
+            <column name="turn_datetime" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="guessed_letter" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="current_word_status" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

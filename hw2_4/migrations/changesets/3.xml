@@ -1,0 +1,33 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <changeSet author="dmpetraytis" id="create-game-status-table">
+        <createTable tableName="game_status">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="game_status_id"/>
+            </column>
+            <column name="title" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="dmpetraytis" id="drop-game-status-column">
+        <dropColumn columnName="game_status" tableName="game" />
+    </changeSet>
+
+    <changeSet author="dmpetraytis" id="add-game-status-id-column">
+        <addColumn tableName="game">
+            <column name="game_status_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="game_status" references="game_status(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

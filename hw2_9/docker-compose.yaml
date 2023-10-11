@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app-1:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 5001:80
+    command: --self app-1:5001 --other app-2:5002 app-3:5003
+
+  app-2:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 5002:80
+    command: --self app-2:5002 --other app-1:5001 app-3:5003
+
+  app-3:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 5003:80
+    command: --self app-3:5003 --other app-1:5001 app-2:5002
